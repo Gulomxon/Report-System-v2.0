@@ -8,6 +8,7 @@ from .models import SysSReports, SysReportAccess, SysRepParams, SysRepParamsHis,
 def dashboard(request):
     return render(request, "dashboard.html")
 
+
 @login_required
 def reports(request):
     user = request.user
