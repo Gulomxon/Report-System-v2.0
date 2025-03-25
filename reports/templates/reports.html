@@ -1,0 +1,42 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% block title %}Reports{% endblock %}
+{% block toptitle %}REPORTS{% endblock %}<
+            {% block content %}
+            <div class="container mt-4">
+                <h2>Reports</h2>
+                <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search reports...">
+                
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Report Name</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTable">
+                        {% for report in reports %}
+                        <tr>
+                            <td>{{ report.id }}</td>
+                            <td><a href="{% url 'order_report' report.id %}">{{ report.name }}</a></td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="2" class="text-center">No reports available</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <script>
+            document.getElementById("searchInput").addEventListener("keyup", function() {
+                var value = this.value.toLowerCase();
+                var rows = document.querySelectorAll("#reportsTable tr");
+                
+                rows.forEach(row => {
+                    var name = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                    row.style.display = name.includes(value) ? "" : "none";
+                });
+            });
+            </script>
+            {% endblock %}
+        

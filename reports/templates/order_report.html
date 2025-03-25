@@ -1,0 +1,44 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}Order Report{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if error_code == '005' %}
+        <h3 class="text-danger">{{error_message}}</h3>
+    {% else %}
+    <h3 class="mb-3">{{ report.name }}</h3>
+
+    <form method="POST" class="bg-white p-4 rounded shadow-sm">
+        {% csrf_token %}            
+        <div class="row">
+            {% for param in parameters %}
+                <div class="col-lg-4  mb-3">
+                    <label for="param_{{ param.id }}" class="form-label">{{ param.param_name }}</label>
+                    
+                    {% if param.type == 'string' %}
+                        <input type="text" class="form-control" id="param_{{ param.id }}" name="{{ param.param_name }}">
+                    
+                    {% elif param.type == 'integer' %}
+                        <input type="number" class="form-control" id="param_{{ param.id }}" name="{{ param.param_name }}">
+                    
+                    {% elif param.type == 'date' %}
+                        <input type="date" class="form-control" id="param_{{ param.id }}" name="{{ param.param_name }}">
+                    
+                    {% elif param.param_type == 'choice' %}
+                        <select class="form-select" id="param_{{ param.id }}" name="{{ param.param_name }}">
+                            <option value="">Select an option</option>
+                            {% for choice in param.get_choices %}
+                                <option value="{{ choice }}">{{ choice }}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Order Report</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

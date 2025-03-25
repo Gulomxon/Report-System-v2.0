@@ -1,0 +1,25 @@
+body {
+    background: linear-gradient(to right, #007bff, #6610f2);
+}
+
+.login-container {
+    width: 350px;
+    padding: 20px;
+}
+
+.logo {
+    width: 200px !important;  /* Adjust size as needed */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
